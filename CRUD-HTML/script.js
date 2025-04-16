@@ -1,11 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cadastroForm = document.getElementById('cadastro-form');
     const listaProdutos = document.getElementById('lista-produtos');
-    const chaveLocalStorage = 'listaDeProdutos';
-    let produtos = carregarProdutosDoLocalStorage(); // Carrega os dados ao iniciar
-    let proximoId = calcularProximoId(); // Calcula o próximo ID com base nos dados existentes
 
-    // Elementos do formulário de edição
+    // Simulação dos dados vindos de um arquivo JSON
+    const produtosJSON = [
+      { "id": 1, "nome": "Carne", "descricao": "Bovina", "preco": 19.99 },
+      { "id": 2, "nome": "Peixe", "descricao": "Peixe", "preco": 29.50 },
+      { "id": 3, "nome": "Legumes", "descricao": "Legumes", "preco": 9.75 },
+      { "id": 4, "nome": "Chocolate", "descricao": "Chocolate", "preco": 16.50}
+      // Adicione mais produtos aqui (copie do seu data.json)
+    ];
+
+    function carregarProdutosDoJSON() {
+      return produtosJSON;
+    }
+
+    let produtos = carregarProdutosDoJSON();
+    let proximoId = calcularProximoId();
+
+    // Elementos do formulário de edição (já existentes)
     const edicaoContainer = document.getElementById('edicao-container');
     const edicaoForm = document.getElementById('edicao-form');
     const editIdInput = document.getElementById('edit-id');
@@ -14,23 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const editPrecoInput = document.getElementById('edit-preco');
     const cancelarEdicaoBtn = document.getElementById('cancelar-edicao');
     const cadastroContainer = document.getElementById('cadastro-container');
-    let produtoEmEdicao = null; // Variável para rastrear o produto sendo editado
-
-    function carregarProdutosDoLocalStorage() {
-        const dataSalva = localStorage.getItem(chaveLocalStorage);
-        return dataSalva ? JSON.parse(dataSalva) : [];
-    }
-
-    function salvarProdutosNoLocalStorage() {
-        localStorage.setItem(chaveLocalStorage, JSON.stringify(produtos));
-    }
+    let produtoEmEdicao = null;
 
     function calcularProximoId() {
         if (produtos.length > 0) {
             const maxId = Math.max(...produtos.map(produto => produto.id));
             return maxId + 1;
         }
-        return 1;
+        return produtosJSON.length + 1; // Se carregar do JSON inicialmente
     }
 
     function gerarIdUnico() {
@@ -53,9 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             produtos.push(novoProduto);
-            salvarProdutosNoLocalStorage(); // Salva após adicionar
             atualizarListaProdutos();
             cadastroForm.reset();
+            console.log("Produto adicionado (não persistirá após recarregar):", produtos);
         } else {
             alert('Por favor, preencha o nome e um preço válido.');
         }
@@ -82,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (indexParaExcluir !== -1) {
             produtos.splice(indexParaExcluir, 1);
-            salvarProdutosNoLocalStorage(); // Salva após excluir
             atualizarListaProdutos();
+            console.log("Produto excluído (não persistirá após recarregar):", produtos);
         }
     }
 
@@ -126,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
             produtoEmEdicao.descricao = editDescricaoInput.value.trim();
             produtoEmEdicao.preco = parseFloat(editPrecoInput.value);
 
-            salvarProdutosNoLocalStorage(); // Salva após editar
             atualizarListaProdutos();
             esconderFormularioEdicao();
+            console.log("Produto editado (não persistirá após recarregar):", produtos);
         }
     });
 
@@ -136,6 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cadastroForm.addEventListener('submit', adicionarProduto);
 
-    // Inicializa a lista carregando os dados do localStorage
+    // Inicializa a lista carregando os dados do JSON embutido
     atualizarListaProdutos();
 });

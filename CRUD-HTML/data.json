@@ -1,0 +1,6 @@
+[
+    { "id": 1, "nome": "Carne", "descricao": "Bovina", "preco": 19.90},
+    { "id": 2, "nome": "Peixe", "descricao": "Peixe", "preco": 25.50},
+    { "id": 3, "nome": "Legumes", "descricao": "Legumes", "preco": 5.00},
+    {"id": 4, "nome": "Chocolate", "descricao": "Chocolate", "preco": 16.50}
+]
