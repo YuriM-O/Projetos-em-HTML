@@ -1,0 +1,60 @@
+<!--este é um projeto CRUD simples de um sistema para cadastrode produtos diversos-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista CRUD de produtos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista CRUD de produtos</h1>
+
+        <div id="cadastro-container">
+            <h2>Adicionar novo produto</h2> 
+            <!--forms para cadastrar novos produtos-->
+            <form id="cadastro-form">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required><br><br>
+
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao"></textarea><br><br>
+
+                <label for="preco">preço:</label>
+                <input type="number" id="preco" name="preco" step="0.01" required><br><br>
+
+                <button type="submit">Adicionar produto</button>
+            </form>
+        </div>
+
+        <div id="listagem-container">
+            <h2>listagem de produtos</h2>
+            <ul id="lista-produtos">
+                <!--lista que vai mostrar os produtos-->
+                </ul>
+        </div>
+        
+        <div id="edicao-container" style="display: none;">
+            <h2>Editar produtos</h2>
+            <!--forms para fazer edição dos produtos que já foram adicionados no sistema-->
+            <form id="edicao-form">
+                <input type="hidden" id="edit-id">
+                <label for="edit-nome">Nome:</label>
+                <input type="text" id="edit-nome" name="edit-nome" required><br><br>
+
+                <label for="edit-descricao">Descrição:</label>
+                <textarea id="edit-descricao" name="edit-descricao"></textarea><br><br>
+
+                <label for="edit-preco">preço:</label>
+                <input type="number" id="edit-preco" name="edit-preco" step="0.01" required><br><br>
+
+                <button type="submit">Salvar edições</button>
+                <button type="button" id="cancelar-edicao">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
